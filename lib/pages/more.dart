@@ -33,7 +33,7 @@ class More extends StatelessWidget {
 
         }),
       ),
-      bottomNavigationBar: const BottomNavigator(),
+      bottomNavigationBar: const BottomNavigator(index: 3),
     );
   }
 }

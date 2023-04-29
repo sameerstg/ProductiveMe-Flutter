@@ -14,7 +14,7 @@ class _StatPanelState extends State<StatPanel> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(child: Text("Stats")),
-      bottomNavigationBar: BottomNavigator(),
+      bottomNavigationBar: BottomNavigator(index: 1),
     );
   }
 }
