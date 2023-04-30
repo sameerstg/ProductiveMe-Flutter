@@ -3,35 +3,29 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../utils/routes.dart';
-
-class BottomNavigator extends StatefulWidget {
-   const BottomNavigator({Key? key,required this.index}) : super(key: key);
-
+import 'utils/routes.dart';
+class BottomNavigator extends StatelessWidget {
   final int index;
 
-  @override
-  State<BottomNavigator> createState() => _BottomNavigatorState();
-}
-
-class _BottomNavigatorState extends State<BottomNavigator> {
-
-
-
+  const BottomNavigator({Key? key,required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: (value) => {
-        changeTab(value),
+      onTap: (index) => {
 
 
+      if(index ==0){Navigator.pushNamed(context, Routes.transaction)}
+
+    else if(index==1){Navigator.pushNamed(context, Routes.stats)}
+    else if(index ==2){Navigator.pushNamed(context, Routes.accounts)}
+    else if(index ==3){Navigator.pushNamed(context, Routes.more)}
 
 
 
       },
       showUnselectedLabels: true,
-      currentIndex: 0,
+      currentIndex: index,
 
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -61,15 +55,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
     );
   }
-  void changeTab(int index) {
-    setState(() {
 
 
-        if(index ==0){Navigator.pushNamed(context, Routes.transaction);}
-
-        else if(index==1){Navigator.pushNamed(context, Routes.stats);}
-        else if(index ==2){Navigator.pushNamed(context, Routes.accounts);}
-        else if(index ==3){Navigator.pushNamed(context, Routes.more);}
-    });
-  }
 }
+
+

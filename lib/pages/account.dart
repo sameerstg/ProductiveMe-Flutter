@@ -19,8 +19,9 @@ class _AccountsState extends State<Accounts> {
   Widget build(BuildContext context) {
     return   Scaffold(
       appBar: AppBar(
-        title: const Text('Accounts'),
 
+        title: const Text('Accounts'),
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.charging_station_sharp),

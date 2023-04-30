@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:productive_me/pages/account.dart';
 import 'package:productive_me/pages/login.dart';
@@ -19,15 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
-
       debugShowCheckedModeBanner: false,
       title: "Productive Me",
       routes: {
         "/": (context) => const Login(),
         "transaction": (context) => const TransactionPanel(),
         "stats": (context) => const StatPanel(),
-        "accounts":(context) => const Accounts(),
-        "more":(context) => const More()
+        "accounts": (context) => const Accounts(),
+        "more": (context) => const More()
       },
     );
   }
