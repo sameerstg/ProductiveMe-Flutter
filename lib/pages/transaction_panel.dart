@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:pandabar/main.view.dart';
 import 'package:pandabar/model.dart';
@@ -7,6 +5,8 @@ import 'package:productive_me/pages/account.dart';
 import 'package:productive_me/pages/more.dart';
 import 'package:productive_me/pages/new_transaction_panel.dart';
 import 'package:productive_me/pages/stats.dart';
+
+import '../utils/routes.dart';
 
 class TransactionPanel extends StatefulWidget {
   const TransactionPanel({super.key});
@@ -132,9 +132,32 @@ class TransactionsHistoryPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          actions: [
+            Container(
+              child: Row(
+                children: [
+                  const Icon(Icons.arrow_back),
+                  Text("8/July/2002", textAlign: TextAlign.center),
+                  const Icon(Icons.arrow_forward),
+                ],
+              ),
+            ),
+          ],
+          leading: Row(
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.mainmenu);
+                },
+                child: const Icon(Icons.home),
+              ),
+            ],
+          ),
+        ),
         body: Column(
           children: [
-            const TransactionAppbar(),
             Expanded(
               child: ListView(
                 children: List.generate(

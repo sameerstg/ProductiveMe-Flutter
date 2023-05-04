@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productive_me/pages/allFavourite_thing_page.dart';
 import 'package:productive_me/pages/account.dart';
+import 'package:productive_me/pages/diary_history.dart';
 import 'package:productive_me/pages/diary_writing_panel.dart';
 import 'package:productive_me/pages/login.dart';
 import 'package:productive_me/pages/mainmenu.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         "diaryWritingPanel": (context) => const DiaryWritingPanel(),
         "allFavourite": (context) => const AllFavouriteThingPanel(),
         "newTransaction": (context) => const NewTransactionPanel(),
+        "diaryHistory": (context) => const DiaryHistory(),
       },
     );
   }

@@ -8,4 +8,5 @@ class Routes {
   static String diaryWritingPanel = "diaryWritingPanel";
   static String allFavourite = "allFavourite";
   static String newTransaction = "newTransaction";
+  static String diaryHistory = "diaryHistory";
 }

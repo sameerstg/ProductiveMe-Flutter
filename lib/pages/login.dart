@@ -94,7 +94,8 @@ class _LoginState extends State<Login> {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color.fromARGB(255, 13, 210, 255)),
+                                  color:
+                                      const Color.fromARGB(255, 13, 210, 255)),
                               height: 30,
                               width: 120,
                               alignment: Alignment.center,
