@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/utils/routes.dart';
+import '../utils/routes.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -88,8 +88,7 @@ class _LoginState extends State<Login> {
                           InkWell(
                             onTap: () {
                               if (formKey.currentState!.validate()) {
-                                Navigator.pushNamed(
-                                    context, Routes.transaction);
+                                Navigator.pushNamed(context, Routes.mainmenu);
                               } else {}
                             },
                             child: Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productive_me/widgets/StatsSlot.dart';
 import 'package:productive_me/widgets/bottom_navigator.dart';
 
 class StatPanel extends StatefulWidget {
@@ -9,8 +10,6 @@ class StatPanel extends StatefulWidget {
 }
 
 class _StatPanelState extends State<StatPanel> {
-  late String date = "Apr 2023";
-  String dropdownValue = 'Monthly';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,81 +17,151 @@ class _StatPanelState extends State<StatPanel> {
       //   automaticallyImplyLeading: false,
 
       // ),
+
       body: SafeArea(
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            const Icon(Icons.arrow_back),
-                            Text(date),
-                            const Icon(Icons.arrow_forward),
-                          ],
-                        ),
-                      ),
-                      Container(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7.5),
-                              border:
-                                  Border.all(width: 0.75, color: Colors.white)),
-                          child: DropdownButton<String>(
-                            borderRadius: BorderRadius.circular(10),
-                            underline: Container(
-                              height: 0,
-                            ),
-                            value: dropdownValue,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                            items: <String>[
-                              'Monthly',
-                              'Option 2',
-                              'Option 3',
-                              'Option 4'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ))
-                    ],
-                  )),
-              Container(
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        child: Text(
-                          "Income",
-                          textAlign: TextAlign.center,
-                        ),
-                        decoration: UnderlineTabIndicator(
-                            borderRadius: BorderRadius.circular(1)),
-                      ),
-                      Container(
-                          child: Text(
-                        "Expense",
-                        textAlign: TextAlign.center,
-                      )),
-                    ]),
-              )
-            ]),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const [
+            StatAppbar(),
+            StatTTab(),
+            StatSlot(),
+
+            // ListView(
+            //   children: List.generate(50, (index) =>  const StatSlot()),
+            // )
+          ],
+        ),
       ),
       bottomNavigationBar: const BottomNavigator(index: 1),
     );
+  }
+}
+
+enum StatsTab { income, expense }
+
+class StatTTab extends StatefulWidget {
+  const StatTTab({super.key});
+
+  @override
+  State<StatTTab> createState() => _StatTTabState();
+}
+
+class _StatTTabState extends State<StatTTab> {
+  late StatsTab statsTab = StatsTab.income;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            InkWell(
+              onTap: () {
+                if (statsTab == StatsTab.expense) {
+                  setState(() {
+                    statsTab = StatsTab.income;
+                  });
+                }
+              },
+              child: Container(
+                width: 100,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                decoration: UnderlineTabIndicator(
+                    borderSide: BorderSide(
+                        color: statsTab == StatsTab.income
+                            ? Colors.red
+                            : Colors.transparent,
+                        width: 2),
+                    borderRadius: BorderRadius.circular(1)),
+                child: const Text(
+                  "Income",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                if (statsTab == StatsTab.income) {
+                  setState(() {
+                    statsTab = StatsTab.expense;
+                  });
+                }
+              },
+              child: Container(
+                width: 100,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                decoration: UnderlineTabIndicator(
+                    borderSide: BorderSide(
+                        color: statsTab == StatsTab.expense
+                            ? Colors.red
+                            : Colors.transparent,
+                        width: 2),
+                    borderRadius: BorderRadius.circular(1)),
+                child: const Text(
+                  "Expense",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ]),
+    );
+  }
+}
+
+class StatAppbar extends StatefulWidget {
+  const StatAppbar({super.key});
+
+  @override
+  State<StatAppbar> createState() => _StatAppbarState();
+}
+
+class _StatAppbarState extends State<StatAppbar> {
+  late String date = "Apr 2023";
+  String dropdownValue = 'Monthly';
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Row(
+            children: [
+              const Icon(Icons.arrow_back),
+              Text(date),
+              const Icon(Icons.arrow_forward),
+            ],
+          ),
+        ),
+        Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(width: 1, color: Colors.white),
+            ),
+            child: DropdownButton<String>(
+              borderRadius: BorderRadius.circular(9),
+              underline: Container(
+                height: 0,
+              ),
+              value: dropdownValue,
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              items: <String>['Monthly', 'Yearly', 'Option 2', 'Option 3']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ))
+      ],
+    );
+    ;
   }
 }

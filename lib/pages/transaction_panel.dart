@@ -1,6 +1,12 @@
-import 'package:flutter/material.dart';
+import 'dart:html';
 
-import '../widgets/bottom_navigator.dart';
+import 'package:flutter/material.dart';
+import 'package:pandabar/main.view.dart';
+import 'package:pandabar/model.dart';
+import 'package:productive_me/pages/account.dart';
+import 'package:productive_me/pages/more.dart';
+import 'package:productive_me/pages/new_transaction_panel.dart';
+import 'package:productive_me/pages/stats.dart';
 
 class TransactionPanel extends StatefulWidget {
   const TransactionPanel({super.key});
@@ -10,24 +16,43 @@ class TransactionPanel extends StatefulWidget {
 }
 
 class _TransactionPanelState extends State<TransactionPanel> {
-  late int index;
+  late int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
+      extendBody: true,
+      bottomNavigationBar: PandaBar(
+        buttonData: [
+          PandaBarButtonData(id: 0, icon: Icons.book, title: 'Grey'),
+          PandaBarButtonData(id: 1, icon: Icons.query_stats, title: 'Blue'),
+          PandaBarButtonData(id: 2, icon: Icons.account_box, title: 'Red'),
+          PandaBarButtonData(id: 3, icon: Icons.more_sharp, title: 'Yellow'),
+        ],
+        onChange: (id) {
+          setState(() {
+            index = id;
+          });
+        },
+        onFabButtonPressed: () {
+          setState(() {});
+        },
       ),
-      body: ListView(
-        children: List.generate(
-          500,
-          (index) => Slot(
-              category: "Food $index",
-              note: "Fries",
-              account: "Cash",
-              amount: "2000"),
-        ),
+      body: Builder(
+        builder: (context) {
+          switch (index) {
+            case 0:
+              return const TransactionsHistoryPanel();
+            case 1:
+              return const StatPanel();
+            case 2:
+              return const Accounts();
+            case 3:
+              return const More();
+            default:
+              return Container();
+          }
+        },
       ),
-      bottomNavigationBar: const BottomNavigator(index: 0),
     );
   }
 }
@@ -97,5 +122,92 @@ class Slot extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class TransactionsHistoryPanel extends StatelessWidget {
+  const TransactionsHistoryPanel({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const TransactionAppbar(),
+            Expanded(
+              child: ListView(
+                children: List.generate(
+                  20,
+                  (index) => Slot(
+                      category: "Food $index",
+                      note: "Fries",
+                      account: "Cash",
+                      amount: "2000"),
+                ),
+              ),
+            ),
+          ],
+        ),
+        // bottomNavigationBar: const BottomNavigator(index: 0),
+      ),
+    );
+  }
+}
+
+class TransactionAppbar extends StatefulWidget {
+  const TransactionAppbar({super.key});
+
+  @override
+  State<TransactionAppbar> createState() => _TransactionAppbar();
+}
+
+class _TransactionAppbar extends State<TransactionAppbar> {
+  late String date = "Apr 2023";
+  String dropdownValue = 'Monthly';
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Row(
+            children: [
+              const Icon(Icons.arrow_back),
+              Text(date),
+              const Icon(Icons.arrow_forward),
+            ],
+          ),
+        ),
+        Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(width: 1, color: Colors.white),
+            ),
+            child: DropdownButton<String>(
+              borderRadius: BorderRadius.circular(9),
+              underline: Container(
+                height: 0,
+              ),
+              value: dropdownValue,
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              items: <String>['Monthly', 'Yearly', 'Option 2', 'Option 3']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ))
+      ],
+    );
+    ;
   }
 }
