@@ -15,21 +15,16 @@ class More extends StatelessWidget {
         crossAxisCount: 3,
         childAspectRatio: 1,
         children: List.generate(9, (index) {
-          return Container(
-            // decoration: BoxDecoration(
-            //   border: Border.all(color: Colors.black),
-            // ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.ac_unit),
-                SizedBox(
-                  height: 10,
-                ),
-                // const SizedBox(height: 20,),
-                Text(MoreItem.more[index]),
-              ],
-            ),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.ac_unit),
+              const SizedBox(
+                height: 10,
+              ),
+              // const SizedBox(height: 20,),
+              Text(MoreItem.more[index]),
+            ],
           );
         }),
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../utils/routes.dart';
-import '../widgets/bottom_navigator.dart';
 
 class DiaryWritingPanel extends StatefulWidget {
   const DiaryWritingPanel({super.key});
@@ -19,13 +18,13 @@ class _DiaryWritingPanelState extends State<DiaryWritingPanel> {
           onTap: () {
             Navigator.pushNamed(context, Routes.mainmenu);
           },
-          child: Icon(Icons.home),
+          child: const Icon(Icons.home),
         ),
         actions: [
           InkWell(
             child: const Icon(Icons.cancel_sharp),
             onTap: () {
-              GoToHistoryPanel();
+              go_to_history_panel();
             },
           ),
           const SizedBox(
@@ -34,7 +33,7 @@ class _DiaryWritingPanelState extends State<DiaryWritingPanel> {
           InkWell(
             child: const Icon(Icons.check),
             onTap: () {
-              GoToHistoryPanel();
+              go_to_history_panel();
             },
           ),
         ],
@@ -64,7 +63,8 @@ class _DiaryWritingPanelState extends State<DiaryWritingPanel> {
     );
   }
 
-  void GoToHistoryPanel() {
+  // ignore: non_constant_identifier_names
+  void go_to_history_panel() {
     Navigator.pushNamed(context, Routes.diaryHistory);
   }
 }

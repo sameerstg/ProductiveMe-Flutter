@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../utils/routes.dart';
 
@@ -16,7 +14,7 @@ class DiaryHistory extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, Routes.mainmenu);
             },
-            child: Icon(Icons.home)),
+            child: const Icon(Icons.home)),
         actions: [
           InkWell(
             child: const Icon(Icons.add),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:productive_me/widgets/StatsSlot.dart';
 import 'package:productive_me/widgets/bottom_navigator.dart';
+import 'package:productive_me/widgets/transaction_filter_date.dart';
+
+import '../utils/routes.dart';
 
 class StatPanel extends StatefulWidget {
   const StatPanel({super.key});
@@ -13,17 +16,27 @@ class _StatPanelState extends State<StatPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-
-      // ),
-
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: const [
+          TransactionFilter(),
+        ],
+        leading: Row(
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.mainmenu);
+              },
+              child: const Icon(Icons.home),
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
-            StatAppbar(),
             StatTTab(),
             StatSlot(),
 
@@ -51,61 +64,59 @@ class _StatTTabState extends State<StatTTab> {
   late StatsTab statsTab = StatsTab.income;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            InkWell(
-              onTap: () {
-                if (statsTab == StatsTab.expense) {
-                  setState(() {
-                    statsTab = StatsTab.income;
-                  });
-                }
-              },
-              child: Container(
-                width: 100,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                decoration: UnderlineTabIndicator(
-                    borderSide: BorderSide(
-                        color: statsTab == StatsTab.income
-                            ? Colors.red
-                            : Colors.transparent,
-                        width: 2),
-                    borderRadius: BorderRadius.circular(1)),
-                child: const Text(
-                  "Income",
-                  textAlign: TextAlign.center,
-                ),
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          InkWell(
+            onTap: () {
+              if (statsTab == StatsTab.expense) {
+                setState(() {
+                  statsTab = StatsTab.income;
+                });
+              }
+            },
+            child: Container(
+              width: 100,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: UnderlineTabIndicator(
+                  borderSide: BorderSide(
+                      color: statsTab == StatsTab.income
+                          ? Colors.red
+                          : Colors.transparent,
+                      width: 2),
+                  borderRadius: BorderRadius.circular(1)),
+              child: const Text(
+                "Income",
+                textAlign: TextAlign.center,
               ),
             ),
-            InkWell(
-              onTap: () {
-                if (statsTab == StatsTab.income) {
-                  setState(() {
-                    statsTab = StatsTab.expense;
-                  });
-                }
-              },
-              child: Container(
-                width: 100,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                decoration: UnderlineTabIndicator(
-                    borderSide: BorderSide(
-                        color: statsTab == StatsTab.expense
-                            ? Colors.red
-                            : Colors.transparent,
-                        width: 2),
-                    borderRadius: BorderRadius.circular(1)),
-                child: const Text(
-                  "Expense",
-                  textAlign: TextAlign.center,
-                ),
+          ),
+          InkWell(
+            onTap: () {
+              if (statsTab == StatsTab.income) {
+                setState(() {
+                  statsTab = StatsTab.expense;
+                });
+              }
+            },
+            child: Container(
+              width: 100,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: UnderlineTabIndicator(
+                  borderSide: BorderSide(
+                      color: statsTab == StatsTab.expense
+                          ? Colors.red
+                          : Colors.transparent,
+                      width: 2),
+                  borderRadius: BorderRadius.circular(1)),
+              child: const Text(
+                "Expense",
+                textAlign: TextAlign.center,
               ),
             ),
-          ]),
-    );
+          ),
+        ]);
   }
 }
 
@@ -162,6 +173,5 @@ class _StatAppbarState extends State<StatAppbar> {
             ))
       ],
     );
-    ;
   }
 }

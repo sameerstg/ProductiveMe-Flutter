@@ -3,8 +3,8 @@ import 'package:pandabar/main.view.dart';
 import 'package:pandabar/model.dart';
 import 'package:productive_me/pages/account.dart';
 import 'package:productive_me/pages/more.dart';
-import 'package:productive_me/pages/new_transaction_panel.dart';
 import 'package:productive_me/pages/stats.dart';
+import 'package:productive_me/widgets/transaction_filter_date.dart';
 
 import '../utils/routes.dart';
 
@@ -23,10 +23,10 @@ class _TransactionPanelState extends State<TransactionPanel> {
       extendBody: true,
       bottomNavigationBar: PandaBar(
         buttonData: [
-          PandaBarButtonData(id: 0, icon: Icons.book, title: 'Grey'),
-          PandaBarButtonData(id: 1, icon: Icons.query_stats, title: 'Blue'),
-          PandaBarButtonData(id: 2, icon: Icons.account_box, title: 'Red'),
-          PandaBarButtonData(id: 3, icon: Icons.more_sharp, title: 'Yellow'),
+          PandaBarButtonData(id: 0, icon: Icons.book, title: 'Transactions'),
+          PandaBarButtonData(id: 1, icon: Icons.query_stats, title: 'Stats'),
+          PandaBarButtonData(id: 2, icon: Icons.account_box, title: 'Accounts'),
+          PandaBarButtonData(id: 3, icon: Icons.more_sharp, title: 'More'),
         ],
         onChange: (id) {
           setState(() {
@@ -81,7 +81,7 @@ class Slot extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            child: Container(
+            child: SizedBox(
               width: 100,
               // color: Colors.red,
               child: Text(category),
@@ -97,14 +97,10 @@ class Slot extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Container(
-                      child: Text(note),
-                    ),
+                    child: Text(note),
                   ),
                   Expanded(
-                    child: Container(
-                      child: Text(account),
-                    ),
+                    child: Text(account),
                   )
                 ],
               ),
@@ -133,29 +129,16 @@ class TransactionsHistoryPanel extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          actions: [
-            Container(
-              child: Row(
-                children: [
-                  const Icon(Icons.arrow_back),
-                  Text("8/July/2002", textAlign: TextAlign.center),
-                  const Icon(Icons.arrow_forward),
-                ],
-              ),
+            leading: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.mainmenu);
+              },
+              child: const Icon(Icons.home),
             ),
-          ],
-          leading: Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.mainmenu);
-                },
-                child: const Icon(Icons.home),
-              ),
-            ],
-          ),
-        ),
+            automaticallyImplyLeading: false,
+            actions: const [
+              TransactionFilter(),
+            ]),
         body: Column(
           children: [
             Expanded(
@@ -231,6 +214,5 @@ class _TransactionAppbar extends State<TransactionAppbar> {
             ))
       ],
     );
-    ;
   }
 }
