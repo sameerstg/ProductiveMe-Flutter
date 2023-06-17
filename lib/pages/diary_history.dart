@@ -32,9 +32,11 @@ class DiaryHistory extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-              child: ListView(
-            children: List.generate(20, (index) => const Slot(title: "title")),
-          ))
+            child: ListView(
+              children:
+                  List.generate(20, (index) => Slot(title: "new day", id: "1")),
+            ),
+          )
         ],
       ),
     );
@@ -42,17 +44,15 @@ class DiaryHistory extends StatelessWidget {
 }
 
 class Slot extends StatelessWidget {
-  final String title;
-
-  const Slot({super.key, required this.title});
+  Slot({super.key, required this.id, required this.title});
+  String id, title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border.all(width: 1)),
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      alignment: Alignment.center,
-      child: Text(title),
-    );
+        decoration: BoxDecoration(border: Border.all(width: 1)),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        alignment: Alignment.center,
+        child: Text(title));
   }
 }

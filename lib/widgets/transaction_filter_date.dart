@@ -13,10 +13,10 @@ class _TransactionFilterState extends State<TransactionFilter> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Row(
+        const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(Icons.arrow_back_ios_sharp),
             SizedBox(width: 10),
             Text("8/July/2002", textAlign: TextAlign.center),

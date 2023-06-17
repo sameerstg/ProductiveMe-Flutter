@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../utils/routes.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late String username = "";
   final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   @override
   void dispose() {
     super.dispose();
@@ -47,7 +49,7 @@ class _LoginState extends State<Login> {
                             controller: usernameController,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter username';
+                                return 'Enter username';
                               }
 
                               return null;
@@ -59,46 +61,43 @@ class _LoginState extends State<Login> {
                             }),
                           ),
                           TextFormField(
-                              controller: passwordController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter password';
-                                }
-                                return null;
-                              },
-                              obscureText: true,
-                              decoration:
-                                  const InputDecoration(hintText: "Password")),
-                          const SizedBox(
-                            height: 10,
+                            controller: emailController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter email';
+                              }
+
+                              return null;
+                            },
+                            decoration:
+                                const InputDecoration(hintText: "Email"),
+                            onChanged: (value) => setState(() {}),
                           ),
-                          Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, Routes.accounts);
-                                  },
-                                  child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: const Text(
-                                        "Forget Password",
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, Routes.register);
-                                  },
-                                  child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: const Text(
-                                        "Create Account",
-                                      )),
-                                ),
-                              ]),
+                          TextFormField(
+                            controller: passwordController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter password';
+                              }
+                              return null;
+                            },
+                            obscureText: true,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration:
+                                const InputDecoration(hintText: "Password"),
+                          ),
+                          TextFormField(
+                            controller: confirmPasswordController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Confirm password';
+                              }
+                              return null;
+                            },
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                                hintText: "Confirm Password"),
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
@@ -117,7 +116,7 @@ class _LoginState extends State<Login> {
                               width: 120,
                               alignment: Alignment.center,
                               child: const Text(
-                                "Login",
+                                "Register",
                               ),
                             ),
                           ),

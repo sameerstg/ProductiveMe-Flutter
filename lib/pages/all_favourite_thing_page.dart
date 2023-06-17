@@ -12,7 +12,7 @@ class _AllFavouriteThingPanel extends State<AllFavouriteThingPanel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(automaticallyImplyLeading: false),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -20,7 +20,7 @@ class _AllFavouriteThingPanel extends State<AllFavouriteThingPanel> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Slot(
                   text: "Food",
                 ),

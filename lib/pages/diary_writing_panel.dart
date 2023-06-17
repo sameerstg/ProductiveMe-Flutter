@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import 'package:productive_me/src/diary.dart';
+import 'package:productive_me/widgets/date_picker.dart';
 import '../utils/routes.dart';
 
 class DiaryWritingPanel extends StatefulWidget {
@@ -10,6 +12,17 @@ class DiaryWritingPanel extends StatefulWidget {
 }
 
 class _DiaryWritingPanelState extends State<DiaryWritingPanel> {
+  TextEditingController dateController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dateController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +46,15 @@ class _DiaryWritingPanelState extends State<DiaryWritingPanel> {
           InkWell(
             child: const Icon(Icons.check),
             onTap: () {
+              if (titleController.text.isEmpty ||
+                  contentController.text.isEmpty) {
+                return;
+              }
+              Diary diary = Diary(
+                  title: titleController.text,
+                  content: contentController.text,
+                  date: dateController.text);
+
               go_to_history_panel();
             },
           ),
@@ -42,7 +64,9 @@ class _DiaryWritingPanelState extends State<DiaryWritingPanel> {
       body: SafeArea(
         child: Form(
           child: Column(children: [
+            const DatePicker(),
             TextFormField(
+              controller: titleController,
               decoration: const InputDecoration(
                 hintText: "Write Title.....",
                 contentPadding: EdgeInsets.all(20),
@@ -50,6 +74,7 @@ class _DiaryWritingPanelState extends State<DiaryWritingPanel> {
             ),
             Expanded(
               child: TextFormField(
+                controller: contentController,
                 maxLines: 20,
                 decoration: const InputDecoration(
                   hintText: "Write Diary.....",

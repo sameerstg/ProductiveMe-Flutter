@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:productive_me/pages/all_favourite_thing_page.dart';
-import 'package:productive_me/pages/account.dart';
-import 'package:productive_me/pages/diary_history.dart';
-import 'package:productive_me/pages/diary_writing_panel.dart';
-import 'package:productive_me/pages/login.dart';
-import 'package:productive_me/pages/mainmenu.dart';
-import 'package:productive_me/pages/more.dart';
-import 'package:productive_me/pages/new_transaction_panel.dart';
-import 'package:productive_me/pages/stats.dart';
-import 'package:productive_me/pages/transaction_panel.dart';
+
+import 'package:productive_me/utils/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,21 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
-      debugShowCheckedModeBanner: false,
-      title: "Productive Me",
-      routes: {
-        "/": (context) => const Login(),
-        "transaction": (context) => const TransactionPanel(),
-        "stats": (context) => const StatPanel(),
-        "accounts": (context) => const Accounts(),
-        "more": (context) => const More(),
-        "mainmenu": (context) => const MainMenu(),
-        "diaryWritingPanel": (context) => const DiaryWritingPanel(),
-        "allFavourite": (context) => const AllFavouriteThingPanel(),
-        "newTransaction": (context) => const NewTransactionPanel(),
-        "diaryHistory": (context) => const DiaryHistory(),
-      },
-    );
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        title: "Productive Me",
+        routes: Routes.routes);
   }
 }

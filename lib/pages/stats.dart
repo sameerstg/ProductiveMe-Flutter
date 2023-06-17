@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:productive_me/widgets/StatsSlot.dart';
+import 'package:productive_me/widgets/stats_slot.dart';
 import 'package:productive_me/widgets/bottom_navigator.dart';
 import 'package:productive_me/widgets/transaction_filter_date.dart';
 
@@ -32,11 +32,11 @@ class _StatPanelState extends State<StatPanel> {
           ],
         ),
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             StatTTab(),
             StatSlot(),
 
