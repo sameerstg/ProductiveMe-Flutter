@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:productive_me/pages/login.dart';
+import 'package:productive_me/src/auth.dart';
 
 import '../utils/routes.dart';
 
@@ -12,12 +16,26 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late String username = "";
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  String? errorMessage;
+  final User? user = Auth().currentUser;
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
-    usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
   }
 
@@ -44,16 +62,16 @@ class _LoginState extends State<Login> {
                       child: Column(
                         children: [
                           TextFormField(
-                            controller: usernameController,
+                            controller: emailController,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter username';
+                                return 'Enter Email';
                               }
 
                               return null;
                             },
-                            decoration:
-                                const InputDecoration(hintText: "Username"),
+                            decoration: const InputDecoration(
+                                hintText: "abcd@domain.com"),
                             onChanged: (value) => setState(() {
                               username = value;
                             }),
@@ -62,7 +80,7 @@ class _LoginState extends State<Login> {
                               controller: passwordController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter password';
+                                  return 'Enter password';
                                 }
                                 return null;
                               },
@@ -105,7 +123,8 @@ class _LoginState extends State<Login> {
                           InkWell(
                             onTap: () {
                               if (formKey.currentState!.validate()) {
-                                Navigator.pushNamed(context, Routes.mainmenu);
+                                Navigator.pushNamed(
+                                    context, Routes.diaryHistory);
                               } else {}
                             },
                             child: Container(

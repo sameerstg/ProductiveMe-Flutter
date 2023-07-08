@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:productive_me/src/auth.dart';
 
 import '../utils/routes.dart';
 
@@ -11,15 +13,27 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late String username = "";
-  final usernameController = TextEditingController();
+  final String errorMessage = " ";
+  final User? user = Auth().currentUser;
+
+  Future<void> registerInWithEmailAndPassword() async {
+    try {
+      await Auth().createUserwithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message!;
+      });
+    }
+  }
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   @override
   void dispose() {
     super.dispose();
-    usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
   }
 
@@ -32,34 +46,10 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                      padding: const EdgeInsets.all(1),
-                      child: Text(
-                        "Welcome $username",
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 28, 172, 255),
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold),
-                      )),
                   Form(
                       key: formKey,
                       child: Column(
                         children: [
-                          TextFormField(
-                            controller: usernameController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Enter username';
-                              }
-
-                              return null;
-                            },
-                            decoration:
-                                const InputDecoration(hintText: "Username"),
-                            onChanged: (value) => setState(() {
-                              username = value;
-                            }),
-                          ),
                           TextFormField(
                             controller: emailController,
                             validator: (value) {
@@ -100,6 +90,15 @@ class _RegisterState extends State<Register> {
                           ),
                           const SizedBox(
                             height: 15,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color.fromARGB(255, 13, 210, 255)),
+                            height: 30,
+                            width: 120,
+                            alignment: Alignment.center,
+                            child: const Text("Humm ? $errorMessage"),
                           ),
                           InkWell(
                             onTap: () {

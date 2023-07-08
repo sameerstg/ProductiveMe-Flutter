@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "23726696145",
+    "project_id": "productive-me-dcc52",
+    "storage_bucket": "productive-me-dcc52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23726696145:android:7c51231de76c86f38b47f0",
+        "android_client_info": {
+          "package_name": "com.sameerstg.productiveme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23726696145-5oelauv1anm8hj7l6kvhbc80cuhutfr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj6EfrHnEwmqIkDD2aki9wqz_97_jYPfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23726696145-5oelauv1anm8hj7l6kvhbc80cuhutfr6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
